@@ -4,6 +4,7 @@ const app = express();
 const server = require("http").createServer(app);
 const io = socketio(server);
 const { v4: uuidV4 } = require('uuid');
+const path = require("path");
 
 const PORT = process.env.PORT || 5001
 
