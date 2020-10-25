@@ -5,8 +5,10 @@ const server = require("http").createServer(app);
 const io = socketio(server);
 const { v4: uuidV4 } = require('uuid');
 
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
+const PORT = process.env.PORT || 5001
+
+// app.set('view engine', 'ejs');
+// app.use(express.static('public'));
 
 app.get('/', (req, res) => {
     res.redirect(`/${uuidV4()}`)
@@ -31,4 +33,14 @@ io.on('connection', socket => {
     })
 })
 
-server.listen(5000);
+
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname + '/client/build/index.html'));
+    });
+}
+
+server.listen(PORT, () => {
+    console.log(`Server running on port : ${PORT}`)
+});

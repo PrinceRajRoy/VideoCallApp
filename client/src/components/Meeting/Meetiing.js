@@ -8,8 +8,13 @@ import { useState } from 'react';
 import Allow from '../Allow/Allow';
 import { useCallback } from 'react';
 
-const HOST =  "http://localhost:5000";
-const socket = io(HOST);
+/*For Development*/
+// const HOST =  "http://localhost:5000";
+// const socket = io(HOST);
+
+/*For Production*/
+const socket = io();
+
 
 function Meetiing() {
     
@@ -20,7 +25,7 @@ function Meetiing() {
     const [videos, setVideos] = useState({});
     const [pending, setPending] = useState({});
     const [roomId, setRoomId] = useState(null);
-    const [myId, setMyId] = useState(null);
+    // const [myId, setMyId] = useState(null);
 
     /* refVideos used For Getting Latest Video State Value In call.on('close') which being an event handler uses initial state values */
     const refVideos = useRef({});
@@ -42,7 +47,7 @@ function Meetiing() {
     //     })
     // }
 
-    const addVideoStream = (userVideo, stream) => {
+    const addVideoStream = useCallback((userVideo, stream) => {
         if(!videos[stream.id]) {
             setVideos(videos => {
                 refVideos.current = {
@@ -55,7 +60,7 @@ function Meetiing() {
             STACK_NO.current++;
         } else 
             return;
-    }
+    }, [videos])
 
     /* Call The User Trying To Connect Using Their PeerId and your stream */
     const answerCall = useCallback((peerId, name) => {
@@ -80,7 +85,7 @@ function Meetiing() {
                 ...peers.current, [peerId]: call
             }
         })
-    }, [pending])
+    }, [pending, roomId, addVideoStream])
 
     /* Answer Admin User Trying To Call You By Sending Your Stream */
     const callAdminUser = (call) => {
@@ -91,6 +96,16 @@ function Meetiing() {
             const video = <Video key={uid} id={uid} srcObj={userStream} />;
             addVideoStream(video, userStream);
         })
+    }
+
+    const copyCode = () => {
+        var tempDiv = document.createElement('textarea');
+        document.body.appendChild(tempDiv);
+        tempDiv.value = roomId;
+        tempDiv.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempDiv);
+        alert("Code Copied" + tempDiv.value);
     }
 
     useEffect(() => {
@@ -111,7 +126,7 @@ function Meetiing() {
             /* Get Your PeerId And Send Admin A Request To Join */
             myPeer.current.on('open', peerId => {
                 socket.emit('join', roomId, peerId, myName.current);
-                setMyId(peerId)
+                // setMyId(peerId)
             })
 
             // navigator.getUserMedia = navigator.mediaDevices.getUserMedia || navigator.mediaDevices.webkitGetUserMedia|| navigator.mediaDevices.mozGetUserMedia;
@@ -162,12 +177,14 @@ function Meetiing() {
                 myPeer.current.destroy();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [roomId])
 
     return (
         <MeetingContainer>
             <Allow pending={pending} answerCall={answerCall}/>
             {Object.values(videos).map(el => el)}
+            <div className="meeting__copy" onClick={() => copyCode()}><i className="fa fa-copy"></i></div>
         </MeetingContainer>
     )
 }
@@ -178,6 +195,21 @@ const MeetingContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, 300px);
     grid-template-rows: 300px;
+    .meeting__copy {
+        position: fixed;
+        right: 30px;
+        top: 10px;
+        height: 30px;
+        width: 25px;
+        border: 1px solid #000000;
+        cursor: pointer;
+    }
+    .fa-copy {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
 `;
 
 /*

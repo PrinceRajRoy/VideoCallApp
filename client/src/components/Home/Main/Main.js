@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import shortid from 'shortid';
@@ -43,7 +43,7 @@ function Main() {
                     </div> : <div></div>
                 }
             </form>
-            <img id="main__icon" src={require('../../../imgs/conference.jpeg')} />
+            <img id="main__icon" src={require('../../../imgs/conference.jpeg')} alt="Main Icon" />
         </MainContainer>
     )
 }
