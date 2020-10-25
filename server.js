@@ -8,16 +8,18 @@ const path = require("path");
 
 const PORT = process.env.PORT || 5001
 
+/* For EJS View Engine */
 // app.set('view engine', 'ejs');
 // app.use(express.static('public'));
 
-app.get('/', (req, res) => {
-    res.redirect(`/${uuidV4()}`)
-})
+// app.get('/', (req, res) => {
+//     res.redirect(`/${uuidV4()}`)
+// })
 
 // app.get('/:room', (req, res) => {
 //     res.render('room', { roomId: req.params.room })
 // })
+
 
 io.on('connection', socket => {
     socket.on('join', (roomId, peerId, name) => {
