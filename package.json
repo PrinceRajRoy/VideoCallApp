@@ -9,8 +9,8 @@
     "heroku-postbuild": "npm run install-client && npm run build",
     "start": "node server.js",
     "client": "cd client && npm start",
-    "peer": "peerjs --port 5001",
-    "dev": "concurrently -n 'server,client,peer' -c 'red,green,blue'  \"nodemon server.js\" \"npm run client\" \"npm run peer\""
+    "peer": "peerjs --port 5002",
+    "dev": "concurrently -n 'server,client,peer' -c 'red,green,blue'  \"nodemon server.js\" \"npm run client\""
   },
   "keywords": [],
   "author": "",

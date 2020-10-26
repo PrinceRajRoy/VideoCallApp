@@ -105,13 +105,14 @@ function Meetiing() {
         tempDiv.select();
         document.execCommand("copy");
         document.body.removeChild(tempDiv);
-        alert("Code Copied" + tempDiv.value);
+        alert("Code Copied: " + tempDiv.value);
     }
 
     useEffect(() => {
         myPeer.current = new window.Peer(undefined, {
-            host: '/',
-            port: 5001
+            secure: true,
+            host: 'peerjs-hserver.herokuapp.com',
+            port: 443
         });
     }, [])
 

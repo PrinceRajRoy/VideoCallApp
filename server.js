@@ -6,7 +6,7 @@ const io = socketio(server);
 const { v4: uuidV4 } = require('uuid');
 const path = require("path");
 
-const PORT = process.env.PORT || 5001
+const PORT = process.env.PORT || 5000
 
 /* For EJS View Engine */
 // app.set('view engine', 'ejs');
