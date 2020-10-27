@@ -7,6 +7,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { useState } from 'react';
 import Allow from '../Allow/Allow';
 import { useCallback } from 'react';
+import { generateMedia } from 'styled-media-query';
 
 /*For Development*/
 // const HOST =  "http://localhost:5000";
@@ -192,10 +193,28 @@ function Meetiing() {
 
 export default Meetiing;
 
+const customBreakpoint = generateMedia({
+    xl: '1350px',
+    lg: '1150px',
+    md: '960px',
+    sm: '740px',
+    xs: '600px'
+})
+
 const MeetingContainer = styled.div`
     display: grid;
-    grid-template-columns: repeat(auto-fill, 300px);
-    grid-template-rows: 300px;
+    ${customBreakpoint.greaterThan('sm')`
+        grid-template-columns: repeat(auto-fill, 25vw);
+        grid-template-rows: 25vw;
+    `}
+    ${customBreakpoint.lessThan('md')`
+        grid-template-columns: repeat(auto-fill, 33.33vw);
+        grid-template-rows: 33.33vw;
+    `}
+    ${customBreakpoint.lessThan('sm')`
+        grid-template-columns: repeat(auto-fill, 50vw);
+        grid-template-rows: 50vw;
+    `}
     .meeting__copy {
         position: fixed;
         right: 30px;

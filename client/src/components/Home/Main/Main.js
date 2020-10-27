@@ -2,6 +2,7 @@ import React, {useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import shortid from 'shortid';
+import { generateMedia } from 'styled-media-query';
 
 function Main() {
 
@@ -43,12 +44,21 @@ function Main() {
                     </div> : <div></div>
                 }
             </form>
-            <img id="main__icon" src={require('../../../imgs/conference.jpeg')} alt="Main Icon" />
+            <img id="main__banner" src={require('../../../imgs/conference.jpeg')} alt="Main Icon" />
         </MainContainer>
     )
 }
 
 export default Main;
+
+const customBreakpoint = generateMedia({
+    xl: '1350px',
+    lg: '1150px',
+    md: '960px',
+    sm: '800px',
+    xs: '600px',
+    xxs: '400px'
+})
 
 const MainContainer = styled.div`
     display: flex;
@@ -97,9 +107,15 @@ const MainContainer = styled.div`
         display: flex;
         gap: 10px;
     }
-    #main__icon {
+    #main__banner {
         height: 400px;
         margin: auto;
+        ${customBreakpoint.lessThan('lg')`
+            height: 350px;
+        `}
+        ${customBreakpoint.lessThan('md')`
+            height: 300px;
+        `}
     }
     .main__heading {
         font-size: 3em;
@@ -108,4 +124,31 @@ const MainContainer = styled.div`
     .main__subheading {
         padding: 20px 0px;
     }
+
+    ${customBreakpoint.lessThan('lg')`
+        .main__heading {
+            font-size: 2.7em;
+        }
+    `}
+
+    ${customBreakpoint.lessThan('sm')`
+        flex-direction: column-reverse;
+        height: auto;
+        padding: 0px 10px;
+        #main__banner {
+            width: 100%;
+            object-fit: cover;
+        }
+        form {
+            width: 100%;
+        }
+    `}
+
+    ${customBreakpoint.lessThan('xs')`
+        padding: 0px 10px;
+    `}
+
+    ${customBreakpoint.lessThan('xxs')`
+        padding: 0px;
+    `}
 `;

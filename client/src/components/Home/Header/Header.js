@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { generateMedia } from 'styled-media-query';
 
 function Header() {
     return (
@@ -20,8 +21,19 @@ function Header() {
 
 export default Header;
 
+const customBreakpoint = generateMedia({
+    xl: '1350px',
+    lg: '1150px',
+    md: '960px',
+    sm: '800px',
+    xs: '600px',
+    xxs: '400px'
+})
+
 const HeaderContainer = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     padding: 0px 50px;
     #header__logo {
         height: 50px;
@@ -30,6 +42,9 @@ const HeaderContainer = styled.div`
         display: flex;
         flex-direction: row;
         list-style-type: none;
+        ${customBreakpoint.lessThan('sm')`
+            display: none;
+        `}
     }
     .header__navItem {
         padding: 0 15px;
@@ -51,4 +66,12 @@ const HeaderContainer = styled.div`
         color: #ffffff;
         background: #4b4444;
     }
+
+    ${customBreakpoint.lessThan('xs')`
+        padding: 0px 10px;
+    `}
+
+    ${customBreakpoint.lessThan('xxs')`
+        padding: 0px;
+    `}
 `;
