@@ -102,9 +102,10 @@ const MainContainer = styled.div`
     .btn {
         font-weight: bold;
         color: #ffffff;
-        box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 15px 30px 0px rgba(0, 0, 0, 0.25);
         padding: 10px 15px;
-        border-radius: 12px;
     }
     .main__joinB {
         border: 1px solid rgb(186, 186, 204);
@@ -148,9 +149,6 @@ const MainContainer = styled.div`
     `}
 
     ${customBreakpoint.lessThan('sm')`
-        flex-direction: column-reverse;
-        height: auto;
-        padding: 0px 10px;
         #main__banner {
             width: 100%;
             object-fit: cover;
