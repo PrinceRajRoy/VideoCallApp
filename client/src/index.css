@@ -13,3 +13,7 @@ code {
 button, input {
   outline: none;
 }
+
+#root {
+  height: 100vh;
+}

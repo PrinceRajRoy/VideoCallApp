@@ -6,7 +6,6 @@ import Main from './Main/Main'
 function Home() {
     return (
         <HomeContainer>
-            <Header />
             <Main />
         </HomeContainer>
     )
@@ -16,5 +15,5 @@ export default Home;
 
 const HomeContainer = styled.div`
     background: #ffffff;
-    padding: 20px;
+    height: 100%;
 `;

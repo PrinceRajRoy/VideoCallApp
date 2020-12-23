@@ -24,7 +24,6 @@ function Main() {
     return (
         <MainContainer>
             <form onSubmit={handleSubmit}>
-                <div className="main__heading">Calling A Friend Just Became Easier!</div>
                 <div className="main__subheading">Host Or Join A Video Lobby! Hop In.</div>
                 <div className="main__options">
                     <button className="main__joinB btn" type="button" onClick={() => setMode(0)}>Join Lobby</button>
@@ -44,7 +43,6 @@ function Main() {
                     </div> : <div></div>
                 }
             </form>
-            <img id="main__banner" src={require('../../../imgs/conference.jpeg')} alt="Main Icon" />
         </MainContainer>
     )
 }
@@ -62,13 +60,26 @@ const customBreakpoint = generateMedia({
 
 const MainContainer = styled.div`
     display: flex;
+    justify-content: center;
+    align-items: center;
     height: 400px;
     padding: 0px 50px;
     align-items: flex-start;
+    background: #3282b8;
+    height: 100%;
+    position: relative;
     form {
+        background: #0f4c75;
+        box-shadow: 0px 0px 80px -30px #000000;
         width: 50%;
-        margin: 20px auto;
+        height: fit-content;
+        min-height: 250px;
+        border-radius: 15px;
+        padding: 20px 0;
+        margin: auto;
         display: flex;
+        justify-content: center;
+        align-items: center;
         flex-direction: column;
     }
     input {
@@ -106,6 +117,11 @@ const MainContainer = styled.div`
     .main__options {
         display: flex;
         gap: 10px;
+    }
+    .main__join {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     #main__banner {
         height: 400px;
