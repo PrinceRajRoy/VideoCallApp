@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components';
-import Header from './Header/Header';
 import Main from './Main/Main'
 
 function Home() {
